@@ -2,7 +2,7 @@
 # Cookbook Name:: redisio
 # Resource::install
 #
-# Copyright 2012, Brian Bianco <brian.bianco@gmail.com>
+# Copyright 2013, Brian Bianco <brian.bianco@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -38,10 +38,10 @@ module RedisioHelper
   end
 
   def self.version_to_hash(version_string)
-    version_array = version_string.split('.') 
+    version_array = version_string.split('.')
     version_array[2] = version_array[2].split("-")
     version_array.flatten!
-    version_hash = { 
+    version_hash = {
         :major => version_array[0],
         :minor => version_array[1],
         :tiny => version_array[2],

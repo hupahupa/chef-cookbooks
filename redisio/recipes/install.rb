@@ -2,7 +2,7 @@
 # Cookbook Name:: redisio
 # Recipe:: install
 #
-# Copyright 2012, Brian Bianco <brian.bianco@gmail.com>
+# Copyright 2013, Brian Bianco <brian.bianco@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,17 +16,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-include_recipe 'redisio::default'
+if node['redisio']['package_install']
+  package "redisio_package_name" do
+    package_name node['redisio']['package_name']
+    action :install
+  end
+else
+  include_recipe 'redisio::_install_prereqs'
+  include_recipe 'build-essential::default'
 
-redis = node['redisio']
-location = "#{redis['mirror']}/#{redis['base_name']}#{redis['version']}.#{redis['artifact_type']}"
+  redis = node['redisio']
+  location = "#{redis['mirror']}/#{redis['base_name']}#{redis['version']}.#{redis['artifact_type']}"
 
-redisio_install "redis-servers" do
-  version redis['version']
-  download_url location
-  default_settings redis['default_settings']
-  servers redis['servers']
-  safe_install redis['safe_install']
-  base_piddir redis['base_piddir']
+  redisio_install "redis-installation" do
+    version redis['version']
+    download_url location
+    safe_install redis['safe_install']
+    install_dir redis['install_dir']
+  end
 end
 
+include_recipe 'ulimit::default'

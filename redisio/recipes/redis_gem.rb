@@ -2,7 +2,7 @@
 # Cookbook Name:: redisio
 # Recipe:: redis_gem
 #
-# Copyright 2012, Brian Bianco <brian.bianco@gmail.com>
+# Copyright 2013, Brian Bianco <brian.bianco@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,5 +19,5 @@
 
 gem_package node['redisio']['gem']['name'] do
   version node['redisio']['gem']['version'] unless node['redisio']['gem']['version'].nil?  
-  action :install 
-end 
+  action :install
+end
